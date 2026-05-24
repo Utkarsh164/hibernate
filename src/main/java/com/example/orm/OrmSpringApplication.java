@@ -7,33 +7,61 @@ import org.hibernate.cfg.Configuration;
 
 public class OrmSpringApplication {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        student s1 = new student();
+		
+//one way to write
 
-        s1.setRollNo(1);
-        s1.setsName("utkarsh");
-        s1.setsAge(12);
+//        Configuration cfg = new Configuration();
+//
+//        cfg.addAnnotatedClass(student.class);
+//
+//        cfg.configure();
+//
+//        SessionFactory sf = cfg.buildSessionFactory();
 
-        Configuration cfg = new Configuration();
+		SessionFactory sf = new Configuration()
+				.addAnnotatedClass(student.class)
+				.configure()
+				.buildSessionFactory();
+		Session session = sf.openSession();
+		
+		//Create
+//		Transaction transaction = session.beginTransaction();
+//		student s1 = new student();
+//
+//		s1.setRollNo(4);
+//		s1.setsName("Ash");
+//		s1.setsAge(12);
+//
+//		session.persist(s1);
+//
+//		transaction.commit();
+//
+//		System.out.println(s1);
+		
 
-        cfg.addAnnotatedClass(student.class);
+		//Read
+		student s2=session.find(student.class, 2);
+		System.out.print("Love from "+s2);
+		
+		//Update
+		
+		Transaction transaction = session.beginTransaction();
+		student s1 = new student();
 
-        cfg.configure();
+		s1.setRollNo(4);
+		s1.setsName("Ash ketchum");
+		s1.setsAge(12);
 
-        SessionFactory sf = cfg.buildSessionFactory();
+		session.merge(s1);
 
-        Session session = sf.openSession();
+		transaction.commit();
 
-        Transaction transaction = session.beginTransaction();
+		System.out.println(s1);
+		
 
-        session.persist(s1);
-
-        transaction.commit();
-
-        System.out.println(s1);
-
-        session.close();
-        sf.close();
-    }
+		session.close();
+		sf.close();
+	}
 }
