@@ -9,7 +9,6 @@ public class OrmSpringApplication {
 
 	public static void main(String[] args) {
 
-		
 //one way to write
 
 //        Configuration cfg = new Configuration();
@@ -20,13 +19,14 @@ public class OrmSpringApplication {
 //
 //        SessionFactory sf = cfg.buildSessionFactory();
 
-		SessionFactory sf = new Configuration()
-				.addAnnotatedClass(student.class)
-				.configure()
-				.buildSessionFactory();
-		Session session = sf.openSession();
-		
-		//Create
+		// second way to write this
+//		SessionFactory sf = new Configuration()
+//				.addAnnotatedClass(student.class)
+//				.configure()
+//				.buildSessionFactory();
+//		Session session = sf.openSession();
+
+		// Create
 //		Transaction transaction = session.beginTransaction();
 //		student s1 = new student();
 //
@@ -39,28 +39,50 @@ public class OrmSpringApplication {
 //		transaction.commit();
 //
 //		System.out.println(s1);
-		
 
-		//Read
-		student s2=session.find(student.class, 2);
-		System.out.print("Love from "+s2);
-		
-		//Update
-		
+		// Read
+//		student s2=session.find(student.class, 2);
+//		System.out.print("Love from "+s2);
+
+		// Update
+
+//		Transaction transaction = session.beginTransaction();
+//		student s1 = new student();
+//
+//		s1.setRollNo(4);
+//		s1.setsName("Ash ketchum");
+//		s1.setsAge(12);
+//
+//		session.merge(s1);
+//
+//		transaction.commit();
+//
+//		System.out.println(s1);
+//		
+//
+//		session.close();
+//		sf.close();
+
+		SessionFactory sf = new Configuration().addAnnotatedClass(student.class).configure().buildSessionFactory();
+		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
-		student s1 = new student();
+		Laptop l = new Laptop();
+		l.setlModal("Yoga");
+		l.setlName("Lenovo");
+		l.setlPrice(70000);
 
-		s1.setRollNo(4);
-		s1.setsName("Ash ketchum");
-		s1.setsAge(12);
+		student s = new student();
+		s.setRollNo(64);
+		s.setsAge(22);
+		s.setsName("Utkarsh Singh Rawat");
+		s.setLaptop(l);
 
-		session.merge(s1);
-
+		session.persist(s);
 		transaction.commit();
 
-		System.out.println(s1);
-		
+		student std = session.find(student.class, 64);
 
+		System.out.println("IBM Ka intejar karne wala : " + std);
 		session.close();
 		sf.close();
 	}
