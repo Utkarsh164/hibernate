@@ -2,9 +2,24 @@ package com.example.orm;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Embeddable
+@Entity
 public class Laptop{
+	
+	@Id
+	private int lId;
+	
+	
+	public int getlId() {
+		return lId;
+	}
+
+	public void setlId(int lId) {
+		this.lId = lId;
+	}
+
 	@Column(name="Laptop_Name")
 	private String lName;
     public String getlName() {
@@ -37,7 +52,9 @@ public class Laptop{
 
 	@Override
 	public String toString() {
-		return "Laptop [lName=" + lName + ", lModal=" + lModal + ", lPrice=" + lPrice + "]";
+		return "Laptop [lId=" + lId + ", lName=" + lName + ", lModal=" + lModal + ", lPrice=" + lPrice + "]";
 	}
+
+	
 
 }

@@ -1,5 +1,8 @@
 package com.example.orm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -63,27 +66,63 @@ public class OrmSpringApplication {
 //		session.close();
 //		sf.close();
 
-		SessionFactory sf = new Configuration().addAnnotatedClass(student.class).configure().buildSessionFactory();
+//		SessionFactory sf = new Configuration().addAnnotatedClass(student.class).configure().buildSessionFactory();
+//		Session session = sf.openSession();
+//		Transaction transaction = session.beginTransaction();
+//		Laptop l = new Laptop();
+//		l.setlModal("Yoga");
+//		l.setlName("Lenovo");
+//		l.setlPrice(70000);
+//
+//		student s = new student();
+//		s.setRollNo(64);
+//		s.setsAge(22);
+//		s.setsName("Utkarsh Singh Rawat");
+//		s.setLaptop(l);
+//
+//		session.persist(s);
+//		transaction.commit();
+//
+//		student std = session.find(student.class, 64);
+//
+//		System.out.println("IBM Ka intejar karne wala : " + std);
+//		session.close();
+//		sf.close();
+
+		SessionFactory sf = new Configuration().addAnnotatedClass(student.class).addAnnotatedClass(Laptop.class)
+				.configure().buildSessionFactory();
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
 		Laptop l = new Laptop();
+		l.setlId(15);
 		l.setlModal("Yoga");
 		l.setlName("Lenovo");
-		l.setlPrice(70000);
+		l.setlPrice(30000);
+		session.persist(l);
+		
+		Laptop l2 = new Laptop();
+		l2.setlId(14);
+		l2.setlModal("Dell");
+		l2.setlName("Dell");
+		l2.setlPrice(30000);
+		session.persist(l2);
+		
+		List<Laptop> list=new ArrayList<>();
+		list.add(l);
+		list.add(l2);
 
 		student s = new student();
-		s.setRollNo(64);
-		s.setsAge(22);
+		s.setLaptops(list);
+		s.setRollNo(164);
+		s.setsAge(26);
 		s.setsName("Utkarsh Singh Rawat");
-		s.setLaptop(l);
 
 		session.persist(s);
 		transaction.commit();
-
-		student std = session.find(student.class, 64);
-
+		student std = session.find(student.class, 164);
 		System.out.println("IBM Ka intejar karne wala : " + std);
 		session.close();
 		sf.close();
+
 	}
 }

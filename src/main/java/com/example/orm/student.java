@@ -2,7 +2,12 @@ package com.example.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
+import java.util.List;
+
 import com.example.orm.Laptop;
 @Entity
 @Table(name = "Student_Details")
@@ -11,7 +16,14 @@ public class student {
 	private int rollNo;
 	private String sName;
 	private int sAge;
-	private Laptop laptop;
+//	@OneToOne
+//	private List<Laptop> laptops;
+//	public int getRollNo() {
+//		return rollNo;
+//	}
+	
+	@OneToMany
+	private List<Laptop> laptops;
 	public int getRollNo() {
 		return rollNo;
 	}
@@ -30,15 +42,15 @@ public class student {
 	public void setsAge(int sAge) {
 		this.sAge = sAge;
 	}
-	public Laptop getLaptop() {
-		return laptop;
+	public List<Laptop> getLaptops() {
+		return laptops;
 	}
-	public void setLaptop(Laptop laptop) {
-		this.laptop = laptop;
+	public void setLaptops(List<Laptop> laptops) {
+		this.laptops = laptops;
 	}
 	@Override
 	public String toString() {
-		return "student [rollNo=" + rollNo + ", sName=" + sName + ", sAge=" + sAge + ", laptop=" + laptop + "]";
+		return "student [rollNo=" + rollNo + ", sName=" + sName + ", sAge=" + sAge + ", laptops=" + laptops + "]";
 	}
 
 	
