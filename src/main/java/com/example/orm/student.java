@@ -3,12 +3,10 @@ package com.example.orm;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.util.List;
 
-import com.example.orm.Laptop;
 @Entity
 @Table(name = "Student_Details")
 public class student {
@@ -22,7 +20,7 @@ public class student {
 //		return rollNo;
 //	}
 	
-	@OneToMany
+	@OneToMany(mappedBy="std")//to remove creation of 3rd table
 	private List<Laptop> laptops;
 	public int getRollNo() {
 		return rollNo;
@@ -50,7 +48,7 @@ public class student {
 	}
 	@Override
 	public String toString() {
-		return "student [rollNo=" + rollNo + ", sName=" + sName + ", sAge=" + sAge + ", laptops=" + laptops + "]";
+		return "student [rollNo=" + rollNo + ", sName=" + sName + ", sAge=" + sAge + "]";
 	}
 
 	

@@ -93,34 +93,37 @@ public class OrmSpringApplication {
 				.configure().buildSessionFactory();
 		Session session = sf.openSession();
 		Transaction transaction = session.beginTransaction();
-		Laptop l = new Laptop();
-		l.setlId(15);
-		l.setlModal("Yoga");
-		l.setlName("Lenovo");
-		l.setlPrice(30000);
-		session.persist(l);
+		
+		Laptop l1 = new Laptop();
+		l1.setlId(1);
+		l1.setlModal("Yoga");
+		l1.setlName("Lenovo");
+		l1.setlPrice(30000);
 		
 		Laptop l2 = new Laptop();
-		l2.setlId(14);
+		l2.setlId(2);
 		l2.setlModal("Dell");
-		l2.setlName("Dell");
+		l2.setlName("Latitude 5000");
 		l2.setlPrice(30000);
-		session.persist(l2);
 		
 		List<Laptop> list=new ArrayList<>();
-		list.add(l);
+		list.add(l1);
 		list.add(l2);
 
 		student s = new student();
 		s.setLaptops(list);
 		s.setRollNo(164);
-		s.setsAge(26);
+		s.setsAge(22);
 		s.setsName("Utkarsh Singh Rawat");
+		l1.setStd(s);
+		l2.setStd(s);
 
+		session.persist(l2);
+		session.persist(l1);
 		session.persist(s);
 		transaction.commit();
 		student std = session.find(student.class, 164);
-		System.out.println("IBM Ka intejar karne wala : " + std);
+		System.out.println("IBMer : " + std);
 		session.close();
 		sf.close();
 

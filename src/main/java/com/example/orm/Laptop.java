@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Laptop{
@@ -49,11 +50,26 @@ public class Laptop{
 	public void setlPrice(int lPrice) {
 		this.lPrice = lPrice;
 	}
+	
+	@ManyToOne //to remove creation of 3rd table
+	private student std;
+
+
+	public student getStd() {
+		return std;
+	}
+
+	public void setStd(student std) {
+		this.std = std;
+	}
 
 	@Override
 	public String toString() {
-		return "Laptop [lId=" + lId + ", lName=" + lName + ", lModal=" + lModal + ", lPrice=" + lPrice + "]";
+		return "Laptop [lId=" + lId + ", lName=" + lName + ", lModal=" + lModal + ", lPrice=" + lPrice	+ "]";
 	}
+
+
+	
 
 	
 
